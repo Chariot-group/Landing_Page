@@ -8,6 +8,6 @@ services:
     ports:
       - "80:80"
     environment:
-      - NODE_ENV=production
+      - NODE_ENV=${NODE_ENV}
       - STRIPE_SECRET_KEY=${STRIPE_SECRET_KEY}
       - NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=${NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY}
