@@ -2,12 +2,14 @@ version: '3.8'
 
 services:
   app:
-    build:
-      context: .
-      dockerfile: ./frontend/Dockerfile
+    image: node:18-alpine
+    working_dir: /app
+    volumes:
+      - .:/app
     ports:
-      - "80:80"
+      - "80:3000"
     environment:
       - NODE_ENV=${NODE_ENV}
       - STRIPE_SECRET_KEY=${STRIPE_SECRET_KEY}
       - NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=${NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY}
+    command: sh -c "npm install && npm run build && npm start"
