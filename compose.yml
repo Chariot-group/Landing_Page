@@ -5,7 +5,7 @@ services:
     image: node:18-alpine
     working_dir: /app
     volumes:
-      - .:/app
+      - ./chariot-app:/app
     ports:
       - "8081:3000"
     environment:
