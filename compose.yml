@@ -7,7 +7,7 @@ services:
     volumes:
       - .:/app
     ports:
-      - "8080:3000"
+      - "8081:3000"
     environment:
       - NODE_ENV=${NODE_ENV}
       - STRIPE_SECRET_KEY=${STRIPE_SECRET_KEY}
