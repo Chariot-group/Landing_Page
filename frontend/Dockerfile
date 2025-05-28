@@ -21,7 +21,7 @@ ENV NEXT_PUBLIC_SKIP_ESLINT=true
 COPY ./frontend/ ./
 
 # Install dependencies
-RUN npm install
+RUN npm ci
 
 # Build the application for production
 RUN npm run build
