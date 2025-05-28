@@ -1,27 +1,38 @@
-# Use a lightweight Node.js image
-FROM node:18-alpine AS build
+# Utiliser une image Node.js légère pour la construction
+FROM node:18-alpine AS builder
 
-# Set working directory
+# Définir le répertoire de travail pour la construction
 WORKDIR /app
 
-# Copy package files and install dependencies
+# Copier les fichiers nécessaires pour installer les dépendances
 COPY package*.json ./
-RUN npm ci
 
-# Copy the rest of the application code
+# Installer les dépendances
+RUN npm install
+
+# Copier le reste des fichiers de l'application
 COPY . .
 
-# Build the application (if applicable, e.g., for React, Vue, etc.)
+# Construire l'application pour la production
 RUN npm run build
 
-# Use a lightweight web server for production
-FROM nginx:alpine AS production
+# Utiliser une image Node.js légère pour l'exécution
+FROM node:18-alpine
 
-# Copy built files to the Nginx web server
-COPY --from=build /app/dist /usr/share/nginx/html
+# Définir le répertoire de travail pour l'exécution
+WORKDIR /app
 
-# Expose port 80
-EXPOSE 80
+# Copier uniquement les fichiers nécessaires pour exécuter l'application
+COPY --from=builder /app/package*.json ./
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/dist ./dist
 
-# Start Nginx
-CMD ["nginx", "-g", "daemon off;"]
+# Exposer le port utilisé par l'application
+EXPOSE 3000
+
+# Définir les variables d'environnement par défaut (modifiable via Coolify)
+ENV NODE_ENV=production
+ENV PORT=3000
+
+# Commande par défaut pour démarrer l'application
+CMD ["node", "dist/index.js"]
