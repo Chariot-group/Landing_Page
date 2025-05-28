@@ -15,7 +15,7 @@ RUN npm install
 COPY . .
 
 # Construire l'application pour la production
-RUN npm run build || echo "Build failed, but continuing..."
+RUN npm run build
 
 # Utiliser une image Node.js légère pour l'exécution
 FROM node:18-alpine
