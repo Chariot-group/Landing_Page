@@ -32,7 +32,10 @@ COPY --from=builder /app/dist ./dist
 EXPOSE 3000
 
 # Définir les variables d'environnement par défaut (modifiable via Coolify)
-ENV NODE_ENV=production
+ENV NODE_ENV=${NODE_ENV}
+ENV NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=${NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY}
+ENV STRIPE_SECRET_KEY=${STRIPE_SECRET_KEY}
+ENV NEXT_PUBLIC_APP_URL=${NEXT_PUBLIC_APP_URL}
 ENV PORT=3000
 
 # Commande par défaut pour démarrer l'application
