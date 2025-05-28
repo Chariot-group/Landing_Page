@@ -8,6 +8,9 @@ WORKDIR /app
 # Copier le contenu du répertoire frontend dans le conteneur
 COPY ./frontend/ ./
 
+# Copier le fichier .env dans le conteneur
+COPY ./frontend/.env .env
+
 # Installer les dépendances
 RUN npm install
 
