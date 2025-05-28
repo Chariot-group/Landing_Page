@@ -4,21 +4,23 @@ FROM node:18-alpine AS builder
 # Définir le répertoire de travail pour la construction
 WORKDIR /app
 
-# Set environment variables for the build process
+# Définir les arguments de build
+ARG NODE_ENV
+ARG NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
+ARG STRIPE_SECRET_KEY
+ARG NEXT_PUBLIC_APP_URL
+
+# Exporter les arguments comme variables d'environnement
 ENV NODE_ENV=${NODE_ENV}
 ENV NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=${NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY}
 ENV STRIPE_SECRET_KEY=${STRIPE_SECRET_KEY}
 ENV NEXT_PUBLIC_APP_URL=${NEXT_PUBLIC_APP_URL}
-ENV PORT=3000
 
 # Copier le contenu du répertoire frontend dans le conteneur
 COPY ./frontend/ ./
 
 # Installer les dépendances
 RUN npm install
-
-# Copier le reste des fichiers de l'application
-COPY . .
 
 # Construire l'application pour la production
 RUN npm run build
@@ -36,7 +38,6 @@ COPY --from=builder /app/dist ./dist
 
 # Exposer le port utilisé par l'application
 EXPOSE 3000
-
 
 # Commande par défaut pour démarrer l'application
 CMD ["node", "dist/index.js"]
