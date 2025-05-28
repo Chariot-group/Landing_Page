@@ -7,6 +7,9 @@ WORKDIR /app
 # Copier les fichiers nécessaires pour installer les dépendances
 COPY ./frontend/package*.json ./
 
+# Copier le contenu du répertoire frontend dans le conteneur
+COPY ./frontend/ ./
+
 # Installer les dépendances
 RUN npm install
 
