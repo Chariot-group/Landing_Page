@@ -4,8 +4,6 @@ FROM node:18-alpine AS builder
 # Définir le répertoire de travail pour la construction
 WORKDIR /app
 
-# Copier les fichiers nécessaires pour installer les dépendances
-COPY ./frontend/package*.json ./
 
 # Copier le contenu du répertoire frontend dans le conteneur
 COPY ./frontend/ ./
