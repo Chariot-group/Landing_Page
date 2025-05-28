@@ -5,7 +5,7 @@ FROM node:18-alpine AS builder
 WORKDIR /app
 
 # Copier les fichiers nécessaires pour installer les dépendances
-COPY package*.json ./
+COPY ./frontend/package*.json ./
 
 # Installer les dépendances
 RUN npm install
