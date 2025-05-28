@@ -5,11 +5,11 @@ FROM node:18-alpine AS builder
 WORKDIR /app
 
 # Install dependencies first (better caching)
-COPY ./frontend/package*.json ./
+COPY package*.json ./
 RUN npm ci
 
 # Copy source code
-COPY ./frontend/ ./
+COPY . .
 
 # Build arguments
 ARG NODE_ENV=production
